@@ -1,4 +1,22 @@
 [tool.black]
+# https://github.com/psf/black
+line-lenght = 88 
+color = true
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | env
+    | venv
+)/
+'''
 
 [tool.isort]
 # https://pycqa.github.io/isort/docs/configuration/black_compatibility.html

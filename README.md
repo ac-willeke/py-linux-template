@@ -2,16 +2,6 @@
 
 Modify this `README.md` file, to explain what your software does.
 
-# Good practices
-
-## .gitignore
-
-Add paths and files that you do not want to be committed by adding them to .gitignore.
-
-## pre-commit
-
-`pre-commit` can run tools to check your changes and refactor code (using `black`), to keep your repository clean and avoid common mistakes. The list of actions that are executed are defined in `.pre-commit-config.yaml`.
-
 ## Unix shell
 
 See the [cheatsheet](cheatsheet_unix_shell.md) for a quick overview of the Unix shell.
@@ -20,7 +10,7 @@ See the [cheatsheet](cheatsheet_unix_shell.md) for a quick overview of the Unix 
 
 ## Installation
 
-### 1. Install Python
+### 1. Python
 
  - Check if and where Python is installed on Windows OS. 
 
@@ -85,12 +75,10 @@ See the [cheatsheet](cheatsheet_unix_shell.md) for a quick overview of the Unix 
    
    **Note**: Solely install pre-commit in the standard distribution, not in the miniconda distribution.
  
+## 2. Git and Github
 
-## 2. Install tools for enhancing code quality
-
-### Git and GitHub
-- Install git: [git-scm.com](https://git-scm.com/download/linux)
-- Login to GitHub in vscode
+- install git: [git-scm.com](https://git-scm.com/download/linux)
+- login to GitHub in vscode
 - configure git
    ```shell
    git config --global user.name "John Doe"
@@ -100,12 +88,41 @@ See the [cheatsheet](cheatsheet_unix_shell.md) for a quick overview of the Unix 
    # check your settings
    git config --list --show-origin
    ```
+- create `.gitignore`: file that contains files and directories that should not be tracked by git
+
+## 3. Makefile
+
+*Make* is a tool that is used for automating tasks by defining a set of instructions in a `Makefile` which is located in your projects root directory. Install make using: `sudo apt install make`
+
+A template Makefile is provided in this repository. It contains the following targets:
+- `make global-install`: installs all dependencies that are not project-specific using pipx
+   - pre-commit
+   - black
+   - isort
+   - ruff
+
+- `make poetry-install`: installs all dependencies that are project-specific using poetry
+- `make codestyle`: runs all code quality checks (black, isort, ruff)
+- `make cleanup`: removes all temporary files and directories
 
 
-### Install pre-commit
+
+
+## 3. Tools for code quality and structure
+
+
+
+
+### pre-commit
 ** pre-commit** checks certain actions before committing changes to your repository. The list of actions that are executed are defined in `.pre-commit-config.yaml`.
    - Install `pre-commit`: `pipx install pre-commit`
    - Enter into your git repository and install the hooks: `pre-commit install` (optional, but recommended)
+   - de-activate pre-commit:
+      - delete or comment out the lines in .pre-commit-config.yaml 
+      - `pre-commit uninstall`
+      - `pre-commit clean`
+
+
 
 
 **How to use pre-commit:**
@@ -115,27 +132,26 @@ In case you executed `pre-commit install`, `pre-commit` hooks will be executed e
 The suggested method to use `pre-commit` is to run it before trying to commit your changes, using `pre-commit run -a`. You can run this command multiple times, to check if the changes are ready to be committed.
 After all the tests succeeded, the changes can be staged (`git add`) and committed.
 
-### Install black
-**black** is a code formatter that reformats your code to comply with PEP 8. 
-- Install it using `pipx install black`
-
+### Code formatters and linters:
 - black (code formatter)
 
 - isort (sorts imports)
 
 - ruff (linter)
 
+## Project Templates
+
+- cookiecutter (pre-made templates)
+
+
+
+
+TODO 
+- install poetry (check) [poetry](https://python-poetry.org/docs)
+- write docs on poetry and makefiles
 
 
 
 
 
 
-
-
-### How to use pre-commit 
-
-In case you executed `pre-commit install`, `pre-commit` hooks will be executed each time you will try to commit (`git commit`). If any of the checks fail or if any files that is going to be committed is changed (because a tool refactored or cleaned it), the commit will fail.
-
-The suggested method to use `pre-commit` is to run it before trying to commit your changes, using `pre-commit run -a`. You can run this command multiple times, to check if the changes are ready to be committed.
-After all the tests succeeded, the changes can be staged (`git add`) and committed.
