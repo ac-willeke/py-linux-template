@@ -3,7 +3,7 @@ py-linux-template
 
 **repo-status: work in progress**
 
-Project description goes here. 
+Project description goes here.
 
 ------------
 
@@ -13,13 +13,13 @@ Code is provided for the following tasks:
 
 2. **task 2**
 
-4. **task 3** 
+4. **task 3**
 
-4. **task 4** 
+4. **task 4**
 
 ------------
 
-## Installation 
+## Installation
 
 - See the [linux shell cheatsheet](cheatsheet_linux_shell.md) for a quick overview of shell commands.
 - See the [linux set up document](linux_set_up.md) for a detailed description of the installation process.
@@ -35,21 +35,19 @@ Run `src/test/test_config.py` to test the configuration and logger.
 
 ### Workflow
 
-     
-                
 
 
 
-### References 
-- 
-- 
 
-### Citation 
+
+### References
+-
+-
+
+### Citation
 
 ### Acknowledgments
 
 *This repository is part of the project:*
 
-** xxxx Project** | Long name project. 
-
-
+** xxxx Project** | Long name project.

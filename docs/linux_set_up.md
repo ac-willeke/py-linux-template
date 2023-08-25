@@ -1,18 +1,18 @@
 # Linux Set Up for Python Development
-This document describes how to set up a Linux environment for Python development. The information is based on the documentation from [Python Packages](https://py-pkgs.org/welcome) and [DataCamp](https://www.datacamp.com) course material. 
-See the [cheatsheet](cheatsheet_unix_shell.md) for a quick overview of the Unix shell. 
+This document describes how to set up a Linux environment for Python development. The information is based on the documentation from [Python Packages](https://py-pkgs.org/welcome) and [DataCamp](https://www.datacamp.com) course material.
+See the [cheatsheet](cheatsheet_unix_shell.md) for a quick overview of the Unix shell.
 
 
 ## Installation
 
-Check your shell configuration `echo $0`
+Check your shell configuration using the command `echo $0`.
 
 ### 1. Python
 
- - Check if and where Python is installed. 
+ - Check if and where Python is installed.
 
       ```bash
-      # Standard Python Distribution 
+      # Standard Python Distribution
       which python3
       python3 --version
       which pip
@@ -20,13 +20,13 @@ Check your shell configuration `echo $0`
 
       # Anaconda Distribution
       which conda
-      conda --version 
+      conda --version
       ```
 
 
-- Standard Python distribution 
+- Standard Python distribution
 
-   - download and install from [python.org](https://www.python.org/downloads/) 
+   - download and install from [python.org](https://www.python.org/downloads/)
 
    - add Python to your PATH
    - Install `pipx`: `python3 -m pip install pipx`
@@ -39,7 +39,7 @@ Check your shell configuration `echo $0`
    - download and install from [conda.io](https://docs.conda.io/en/latest/miniconda.html)
 
       ```bash
-      # create a directory 
+      # create a directory
       mkdir -p ~/miniconda3
       cd miniconda3
 
@@ -56,7 +56,7 @@ Check your shell configuration `echo $0`
       rm -rf ~/miniconda3/miniconda.sh
       ``````
    - initialize conda
-   
+
       ```bash
       ~/miniconda3/bin/conda init
       ```
@@ -64,12 +64,12 @@ Check your shell configuration `echo $0`
    - ensure that conda is up to date `conda update --all`
 
 
-| Python Distribution | Python Path | Python Version | 
-| ------------------- | ----------- | -------------- | 
-|standard distribution| `/usr/bin/python3` | `Python 3.10.12` | 
+| Python Distribution | Python Path | Python Version |
+| ------------------- | ----------- | -------------- |
+|standard distribution| `/usr/bin/python3` | `Python 3.10.12` |
 |miniconda distribution| `/home/username/miniconda3/bin/conda/` | `conda 23.5.2`
 
- 
+
 ## 2. Git and Github
 
 - install git: [git-scm.com](https://git-scm.com/download/linux)
@@ -105,7 +105,7 @@ A template Makefile is provided in this repository. It contains the following ta
 
 - `make poetry-install`: installs all dependencies that are project-specific using poetry
 - `make codestyle`: runs all code quality checks (black, isort, ruff, pyment)
-- `make docstring`: generates or converts docstrings to the reStructured text style using pyment 
+- `make docstring`: generates or converts docstrings to the reStructured text style using pyment
 - `make cleanup`: removes all temporary files and directories
 
 
@@ -114,7 +114,7 @@ A template Makefile is provided in this repository. It contains the following ta
    - Install `pre-commit`: `pipx install pre-commit`
    - Enter into your git repository and install the hooks: `pre-commit install` (optional, but recommended)
    - de-activate pre-commit:
-      - delete or comment out the lines in .pre-commit-config.yaml 
+      - delete or comment out the lines in .pre-commit-config.yaml
       - `pre-commit uninstall`
       - `pre-commit clean`
 
@@ -167,8 +167,3 @@ Poetry is a tool for dependency management and packaging in Python. It allows yo
 - [Pre-commit](https://pre-commit.com/)
 - [Black](https://black.readthedocs.io/en/stable/)
 - [Isort](https://pycqa.github.io/isort/)
-
-
-
-
-
