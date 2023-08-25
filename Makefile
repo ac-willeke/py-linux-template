@@ -38,11 +38,24 @@ install-ruff: ## install ruff
 install-pyment: ## install pyment
 	pipx install pyment
 
-global-install: install-poetry install-pre-commit install-black install-isort install-pyment ## install poetry, pre-commit, black, isort, pyment on pipx
+install-cookiecutter: ## install cookiecutter
+	pipx install cookiecutter
+
+global-install: install-poetry install-pre-commit install-black install-isort install-pyment install-cookiecutter ## install poetry, pre-commit, black, isort, pyment on pipx
 
 # --------------------------------------
 # Poetry Installation (TODO)
 # --------------------------------------
+.PHONY: poetry-demo poetry-init
+poetry-demo: ## create poetry demo project in cd
+	poetry new poetry-demo
+poetry-init: ## init poetry in existing project
+	poetry init
+poetry-install: ## install poetry dependencies
+	poetry add black
+	poetry add isort
+	poetry add ruff
+	poetry add pyment
 
 # --------------------------------------
 # Formatting and Linting

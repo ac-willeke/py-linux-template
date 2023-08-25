@@ -153,6 +153,10 @@ Poetry is a tool for dependency management and packaging in Python. It allows yo
 ## Project Templates
 
 - cookiecutter (pre-made templates)
+ ```shell
+ cookiecutter https://github.com/py-pkgs/py-pkgs-cookiecutter.git
+ ```
+
 
 
 ## References
