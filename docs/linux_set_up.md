@@ -1,6 +1,5 @@
 # Linux Set Up for Python Development
-This document describes how to set up a Linux environment for Python development. The information is based on the documentation from [Python Packages](https://py-pkgs.org/welcome) and [DataCamp](https://www.datacamp.com) course material.
-See the [cheatsheet](cheatsheet_unix_shell.md) for a quick overview of the Unix shell.
+This document describes how to set up a Linux environment for Python development. The information is based on the documentation from [Python Packages](https://py-pkgs.org/welcome),  [DataCamp](https://www.datacamp.com) course material and [Packaging for Python](https://packaging.python.org/en/latest/tutorials/packaging-projects/). See the [cheatsheet](cheatsheet_unix_shell.md) for a quick overview of the Unix shell.
 
 
 ## Installation
@@ -91,25 +90,7 @@ The Python Package Index (PyPI) is the official online software repository for P
 - Test PyPI: [test.pypi.org](https://test.pypi.org/account/register/)
 - PyPI: [pypi.org](https://pypi.org/account/register/)
 
-## 4. Makefile
-
-*Make* is a tool that is used for automating tasks by defining a set of instructions in a `Makefile` which is located in your projects root directory. Install make using: `sudo apt install make`
-
-A template Makefile is provided in this repository. It contains the following targets:
-- `make global-install`: installs all dependencies that are not project-specific using pipx
-   - pre-commit
-   - black
-   - isort
-   - ruff
-   - pyment
-
-- `make poetry-install`: installs all dependencies that are project-specific using poetry
-- `make codestyle`: runs all code quality checks (black, isort, ruff, pyment)
-- `make docstring`: generates or converts docstrings to the reStructured text style using pyment
-- `make cleanup`: removes all temporary files and directories
-
-
-## 5. Pre-commit
+## 4. Pre-commit
 ** pre-commit** checks certain actions before committing changes to your repository. The list of actions that are executed are defined in `.pre-commit-config.yaml`.
    - Install `pre-commit`: `pipx install pre-commit`
    - Enter into your git repository and install the hooks: `pre-commit install` (optional, but recommended)
@@ -127,19 +108,26 @@ After all the tests succeeded, the changes can be staged (`git add`) and committ
 
 **Note**: Solely install pre-commit in the standard distribution, not in the miniconda distribution or project-specific poetry environment.
 
-## 6. Code Formatters and Linter
+## 4. Project Structure
 
-- black (code formatter)
+The project structure of this template is shown [here](project_structure.md). You can use this repository as a template for your own project or create a project structure using `cookiecutter`.
 
-- isort (sorts imports)
+```shell
+which cookiecutter
+cd path/to/your/project
+cookiecutter <path/to/cookiecutter/template>
+```
 
-- ruff (linter)
+Templates:
+- [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science)
+- [python-package-template](https://github.com/TezRomacH/python-package-template)
+- [cookiecutter] (https://github.com/py-pkgs/py-pkgs-cookiecutter.git)
 
-- pyment (docstring formatter)
-https://github.com/dadadel/pyment
+In Visual Studio Code you can use the default extension `vscode-cookierunner` to define default cookiecutter templates.
 
 
-## 7. Poetry
+
+## 5. Poetry
 
 Poetry is a tool for dependency management and packaging in Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you. Poetry also allows you to create a virtual environment for your project, so that your project is isolated from your system.
 
@@ -147,15 +135,168 @@ Poetry is a tool for dependency management and packaging in Python. It allows yo
 
 - install poetry: `pipx install poetry` or `make install-poetry`
 
+**Configuration files:**
+- `pyproject.toml`: contains project information and its dependencies. project, including its dependencies. Documentation [here](https://python-poetry.org/docs/pyproject/).
+- `poetry.lock`: contains the exact versions of the dependencies that were installed in your project.
+
+The `poetry.lock` file is automatically generated and should not be edited. It contains the exact versions of the dependencies that were installed in your project.
+
+## 4. Code Formatters and Linter
+In this template the following code formatters and linter are used:
+
+- [Black](https://black.readthedocs.io/en/stable/) (code formatter)
+
+- [Isort](https://pycqa.github.io/isort/) (sorts imports)
+
+- [Ruff](https://github.com/astral-sh/ruff) (linter)
+
+- [pyment](https://github.com/dadadel/pyment) (docstring formatter), docstrings in this template use the reStructured text style.
+
+Example of a docstring in reStructured text style for a function:
+
+```python
+"""Summary line.
+
+Extended description of function.
+
+:param arg1: Description of arg1
+:type arg1: int
+:param arg2: Description of arg2
+:type arg2: str
+:returns: Description of return value
+:rtype: bool
+:raises ValueError: if `param2` is equal to `param1`.
+```
+
+The configuration for these tools is set in the `pyproject.toml` file.
+
+## 7. Makefile
+
+*Make* is a tool that is used for automating tasks by defining a set of instructions in a `Makefile` which is located in your projects root directory. Install make using: `sudo apt install make`
+
+A template Makefile is provided in this repository. It contains the following targets:
+- `make global-install`: installs all dependencies that are not project-specific using pipx
+   - pre-commit
+   - black
+   - isort
+   - ruff
+   - pyment
+
+- `make poetry-install`: installs all dependencies that are project-specific using poetry
+- `make codestyle`: runs all code quality checks (black, isort, ruff, pyment)
+- `make docstring`: generates or converts docstrings to the reStructured text style using pyment
+- `make cleanup`: removes all temporary files and directories
 
 
+# Create, Build and Publish a Python Package
 
-## Project Templates
+## 1. Create a Python Package
+*Based on tutorial from [Packaging for Python](https://packaging.python.org/en/latest/tutorials/packaging-projects/)*
 
-- cookiecutter (pre-made templates)
- ```shell
- cookiecutter https://github.com/py-pkgs/py-pkgs-cookiecutter.git
- ```
+
+   1. Create the **directory structure**:
+      - create a directory for your package (manual or by using template, e.g. `poetry new --src my-package`, cookiecutter or github template)
+      - create a 'src' directory that contains your package, subpackages and modules, with a `__init__.py` file that marks the directory as a Python package.
+
+      ```shell
+      # example
+      ├── src
+      │   ├── __init__.py
+      │   ├── sub-package1
+      │   │   ├── __init__.py
+      │   │   └── module1.py
+      │   ├── sub-package2
+      │   │   ├── __init__.py
+      │   │   └── module2.py
+      │   └── module3.py
+
+
+      # poetry new example
+      my-package
+      ├── pyproject.toml
+      ├── README.md
+      ├── src
+      │   └── my_package
+      │       └── __init__.py
+      └── tests
+         └── __init__.py
+      ```
+   2. Create the **package distruibution files**
+      - create `tests` directory for test files.
+      - create `pyproject.toml` file: contains project information and its dependencies. It tells build-tools like poetry, flit, setuptools-scm, etc. how to build a distribution form your package.
+
+      - build-system tables: [build-system]
+      - project metadata:[tool.poetry] or [project]
+      - create README.md
+      - create license file
+
+   **NOTE: pyproject.toml vs setup.py**
+
+   *`pyproject.toml` is the new standard for packaging Python projects. It is a configuration file that contains the metadata for your project and which is used by build tools like poetry, flit, setuptools-scm, etc. to manage package development.*
+
+   *`setup.py` is the old standard. It is a python script that contains the metadata for your project and which is executed to build distributions from your package.*
+
+## 2. Build the package distribution
+
+   Distribution packages are archives that are uploaded to the Python Package Index and which can be installed by pip.
+
+   - source archives (sdists)
+   - wheels (bdist_wheel)
+
+   **recommended packaging tools**:
+   - poetry, recommended for developing "pure" Python packages.
+   - setuptools, recommended for developing more advanced Python packages that might include C extensions or other non-Python code.
+
+   ```shell
+   # build using poetry
+   poetry build
+
+   # build using setuptools
+   python3 -m pip install --upgrade build
+   python3 -m build
+
+   # output
+   dist/
+   ├── my_package-0.0.1-py3-none-any.whl
+   └── my_package-0.0.1.tar.gz
+   ```
+
+## 3. Publish the package distribution
+
+Upload your package distribution archives to Python Package Index (PyPI) or TestPyPI. Twine and Poetry are recommended tools for uploading.
+
+- install Twine: `pipx install twine`
+- create a (test)PyPI API token. The token is used to authenticate your package uploads. You can create a token on the [PyPI website](https://pypi.org/manage/account/token/) and save it in a secure place (e.g. .env file)
+   **scope = Entire account*
+- configure your twine or poetry settings
+   - twine: create a .pypirc file with your API-key information
+   - poetry: `poetry config pypi-token.pypi <your-token>`
+- upload your package to PyPI or TestPyPi
+   ```shell
+   # upload using twine
+   python3 -m twine upload --repository testpypi dist/*
+
+   # upload using poetry
+   poetry publish -r testpypi
+   ```
+
+## 4. Install the package (TODO)
+
+# Publish Documentation (TODO)
+##  Compile the documentation (TODO)
+https://packaging.python.org/en/latest/tutorials/creating-documentation/
+https://py-pkgs.org/06-documentation/
+
+# Testing (TODO)
+-
+# Continuous Integration (TODO)
+
+## 1. Update the package (TODO)
+- using git messages (semantic versioning) DO after trekroner is fully tested and you published first version to PyPI.
+
+## 2. Versioning
+
+## 3. Continuous Integration and Deployment
 
 
 
@@ -171,3 +312,5 @@ Poetry is a tool for dependency management and packaging in Python. It allows yo
 - [Pre-commit](https://pre-commit.com/)
 - [Black](https://black.readthedocs.io/en/stable/)
 - [Isort](https://pycqa.github.io/isort/)
+- [Ruff](https://github.com/astral-sh/ruff)
+- [pyment](https://github.com/dadadel/pyment)
