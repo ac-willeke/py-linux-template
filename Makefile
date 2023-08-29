@@ -23,6 +23,9 @@ help:
 install-poetry: ## install poetry
 	pipx install poetry
 
+install-twine: ## install twine
+	pipx install twine
+
 install-pre-commit: ## install pre-commit
 	pipx install pre-commit
 
@@ -41,10 +44,10 @@ install-pyment: ## install pyment
 install-cookiecutter: ## install cookiecutter
 	pipx install cookiecutter
 
-global-install: install-poetry install-pre-commit install-black install-isort install-pyment install-cookiecutter ## install poetry, pre-commit, black, isort, pyment on pipx
+global-install: install-poetry install-twine install-pre-commit install-black install-isort install-pyment install-cookiecutter ## install poetry, pre-commit, black, isort, pyment on pipx
 
 # --------------------------------------
-# Poetry Installation (TODO)
+# Poetry Installation
 # --------------------------------------
 .PHONY: poetry-demo poetry-init
 poetry-demo: ## create poetry demo project in cd
@@ -52,10 +55,18 @@ poetry-demo: ## create poetry demo project in cd
 poetry-init: ## init poetry in existing project
 	poetry init
 poetry-install: ## install poetry dependencies
-	poetry add black
-	poetry add isort
-	poetry add ruff
-	poetry add pyment
+	poetry add python-dotenv
+poetry-install-dev: ## install poetry dev dependencies
+	poetry add black --group dev
+	poetry add isort --group dev
+	poetry add ruff --group dev
+	poetry add pyment --group dev
+
+poetry-build: ## build python wheels using poetry
+	poetry build
+
+poetry-publish: ## publish python wheels using poetry
+	poetry publish
 
 # --------------------------------------
 # Formatting and Linting
