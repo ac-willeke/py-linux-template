@@ -1,4 +1,4 @@
-.PHONY: codestyle formatting docstring pre-commit clean clean-venv clean-build clean-pyc clean-linting clean-test poetry-clean
+.PHONY: codestyle formatting docstring pre-commit clean clean-venv clean-build clean-pyc clean-linting clean-test clean-log poetry-clean
 
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
@@ -65,6 +65,9 @@ clean-linting: ## remove linting artifacts
 clean-test: ## remove test and coverage artifacts
 	rm -fr .tox/
 	rm -fr .pytest_cache
+
+clean-log: ## remove log files in /log folder
+	rm -fr log/*.log
 
 # --------------------------------------------------------------------------- #
 # Testing targets

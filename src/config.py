@@ -1,6 +1,7 @@
 """
 A module for configuring the project.
 """
+import logging
 import os
 
 
@@ -12,7 +13,7 @@ class Config:
     """
 
     def __init__(self, config_file):
-        # import here (not at top of file) to avoid circular imports
+        # local imports
         from .utils import yaml_load
 
         with open(config_file, "r") as f:
@@ -30,9 +31,16 @@ config_file = os.path.join(PROJECT_DIR, "config.yaml")
 config_instance = Config(config_file)
 
 
+# global variables
+DATA_PATH = config_instance.DATA_PATH
+LOG_PATH = config_instance.LOG_PATH
+SPATIAL_REFERENCE = config_instance.SPATIAL_REFERENCE
+
+
 if __name__ == "__main__":
+
     PROJECT_DIR = os.path.join(os.path.dirname(__file__), os.pardir)
     config_file = os.path.join(PROJECT_DIR, "config.yaml")
     config_instance = Config(config_file)
 
-    print(config_instance.DATA_PATH)
+    logging.info("DATA_PATH:", config_instance.DATA_PATH)
