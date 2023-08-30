@@ -141,6 +141,11 @@ Poetry is a tool for dependency management and packaging in Python. It allows yo
 
 The `poetry.lock` file is automatically generated and should not be edited. It contains the exact versions of the dependencies that were installed in your project.
 
+**Poetry set-up in VS Code:**
+- install poetry extension in VS Code
+- activate poetry environment in terminal: `poetry shell`
+- set the Python Environment (bottom-left corner) to the poetry environment
+
 ## 4. Code Formatters and Linter
 In this template the following code formatters and linter are used:
 
@@ -313,7 +318,15 @@ https://packaging.python.org/en/latest/tutorials/creating-documentation/
 https://py-pkgs.org/06-documentation/
 
 # Testing (TODO)
--
+- Unit Tests
+exampole of unit tests for the config and utils modules are included here.
+
+run the test with make using `make poetry-test` for a poetry env or `make test` for a venv.
+
+TODO: one test shows 33% coverage, when all tests are run but 100% if only the test for the config module is run.
+
+
+
 # Continuous Integration (TODO)
 
 ## 1. Update the package (TODO)
