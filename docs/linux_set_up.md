@@ -174,6 +174,12 @@ The configuration for these tools is set in the `pyproject.toml` file.
 
 *Make* is a tool that is used for automating tasks by defining a set of instructions in a `Makefile` which is located in your projects root directory. Install make using: `sudo apt install make`
 
+Good practices in Makefiles:
+- testing, cleaning targts should be phony.
+- environment setup (like tool installation) targets do not need to be phony.
+- define a single .PHONY at the top of the Makefile
+- group targets by functionality
+
 A template Makefile is provided in this repository. It contains the following targets:
 - `make global-install`: installs all dependencies that are not project-specific using pipx
    - pre-commit
@@ -223,18 +229,37 @@ A template Makefile is provided in this repository. It contains the following ta
       ```
    2. Create the **package distruibution files**
       - create `tests` directory for test files.
-      - create `pyproject.toml` file: contains project information and its dependencies. It tells build-tools like poetry, flit, setuptools-scm, etc. how to build a distribution form your package.
-
-      - build-system tables: [build-system]
-      - project metadata:[tool.poetry] or [project]
+      - create `pyproject.toml` configuration. It tells build-tools like poetry, flit, setuptools-scm, etc. how to build a distribution form your package.
+         - Build System Configurations: [build-system]
+         - Project Configurations: [tool.poetry] or [project]
+         - Dependency Configurations: [tool.poetry.dependencies] or [project]
+         - Development Dependency Configurations (Poetry Group): [tool.poetry.dev-dependencies]
+         - Specific Tool Configurations: [tool.black], [tool.isort], [tool.ruff], [tool.pyment]
       - create README.md
       - create license file
 
    **NOTE: pyproject.toml vs setup.py**
 
-   *`pyproject.toml` is the new standard for packaging Python projects. It is a configuration file that contains the metadata for your project and which is used by build tools like poetry, flit, setuptools-scm, etc. to manage package development.*
+   *`pyproject.toml` is the new standard for packaging Python projects. It contains the metadata and configuration for build tools like poetry, flit and setuptools-scm to setup your project. [build-system] defines which build tool is used.*
 
-   *`setup.py` is the old standard. It is a python script that contains the metadata for your project and which is executed to build distributions from your package.*
+   ```bash
+   # install dependencies using poetry
+   # your local package is installed in editable mode
+   poetry install
+   ```
+   *`setup.py` and `requirements.txt` is the old standard.The setup.py script contains the metadata for your project and reads the package requirements from your txt file.*
+
+   ```bash
+   # install dependencies using setuptools
+   # your local package is installed in editable mode
+
+   # activate env
+   source venv/bin/activate
+
+   python setup.py install -e.
+   # or
+   pip install -e .
+   ```
 
 ## 2. Build the package distribution
 
@@ -298,7 +323,8 @@ https://py-pkgs.org/06-documentation/
 
 ## 3. Continuous Integration and Deployment
 
-
+# GitHub Actions (TODO)
+- search python
 
 ## References
 
