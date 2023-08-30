@@ -16,12 +16,14 @@ keywords = ["template", "packaging"]
 [tool.poetry.dependencies]
 python = "^3.10"
 python-dotenv = "^1.0.0"
+pyyaml = "^6.0.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
 isort = "^5.12.0"
 ruff = "^0.0.286"
 pyment = "^0.3.3"
+pytest = "^7.4.0"
 
 [tool.black]
 # https://github.com/psf/black

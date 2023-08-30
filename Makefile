@@ -1,4 +1,4 @@
-.PHONY: codestyle formatting docstring pre-commit clean clean-venv clean-build clean-pyc clean-linting clean-test
+.PHONY: codestyle formatting docstring pre-commit clean clean-venv clean-build clean-pyc clean-linting clean-test poetry-clean
 
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
@@ -110,6 +110,7 @@ poetry-install: clean ## install poetry dependencies listed in pyproject.toml
 
 poetry-install-standard: ## install standard poetry dependencies
 	poetry add python-dotenv
+	poetry add pytest --group dev
 	poetry add black --group dev
 	poetry add isort --group dev
 	poetry add ruff --group dev
@@ -128,11 +129,19 @@ poetry-test: poetry-install ## run tests using poetry
 poetry-test-all: poetry-install ## run tests on every Python version with tox
 	poetry run tox
 
+
+
+poetry-clean:
+	poetry env remove --all
+	rm -f poetry.lock
+	@echo "Poetry environment and poetry.lock have been removed."
+
+
 # --------------------------------------------------------------------------- #
 # Installation targets using pipx
 # --------------------------------------------------------------------------- #
 
-install-global: install-poetry install-twine install-pre-commit install-black install-isort install-ruff install-pyment install-cookiecutter ## install global tools
+install-global: install-poetry install-twine install-pre-commit install-black install-isort install-ruff install-pyment install-cookiecutter install-pytest## install global tools
 
 install-poetry: ## install poetry
 	pipx install poetry
@@ -157,3 +166,6 @@ install-pyment: ## install pyment
 
 install-cookiecutter: ## install cookiecutter
 	pipx install cookiecutter
+
+install-pytest: ## install pytest
+	pipx install pytest

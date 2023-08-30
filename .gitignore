@@ -79,6 +79,9 @@ dmypy.json
 # pytest
 .pytest_cache/
 
+# pyment
+*.patch
+
 # project-specific folders
 temp/*
 !temp/.gitkeep
