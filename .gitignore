@@ -76,5 +76,11 @@ dmypy.json
 # ruff linter
 .ruff_cache/
 
+# pytest
+.pytest_cache/
+
 # project-specific folders
-test/
+temp/*
+!temp/.gitkeep
+log/*
+!log/.gitkeep

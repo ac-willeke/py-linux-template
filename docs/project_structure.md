@@ -49,20 +49,39 @@ The installable version of your package that you distribute to others will typic
 It is possible to include arbitrary content in your package that is not Python code. For example, you might want to include a README file, a license file, or even data files that your package uses. To do this, you need to include a MANIFEST.in file in your package. This file is used by the distutils package to determine which files to include in the package. The format of the file is similar to that of a .gitignore file, in that you can specify files to include or exclude using wildcards. For example, to include all files with the .txt extension, you would use the following:
 
 ```bash
-include *.txt
-```
+"""
+Template for .env file
+"""
 
-Or you can add it in your tool.poetry
-```bash
-pyproject.toml
-[tool.poetry]
-name = "pycounts"
-version = "0.1.0"
-description = "Calculate word counts in a text file!"
-authors = ["Tomas Beuzen"]
-license = "MIT"
-readme = "README.md"
-include = ["tests/*", "CHANGELOG.md"]
+# Environment variables go here, can be read by `python-dotenv` package as follow:
+#
+#   `src/config.py`
+#   ----------------------------------------------------------------
+#    import dotenv
+#
+#    project_dir = os.path.join(os.path.dirname(__file__), os.pardir)
+#    dotenv_path = os.path.join(project_dir, '.env')
+#    dotenv.load_dotenv(dotenv_path)
+#   ----------------------------------------------------------------
+#
+# DO NOT ADD THIS FILE TO VERSION CONTROL!
 
+# project
+PROJECT="path/to/the/local/version/of/this/repository"
 
+# data
+RAW_DATA="path/to/raw/data/folder"
+DATA="path/to/project/folder/which/contains/the/data/folder"
+STAND_ALONE_DATA="path/to/data"
+
+# PostGIS connection
+PG_HOST=host_adress
+PG_DB=database_name
+PG_PORT=port_number
+PG_USER=user_name
+PG_KEY=password
+
+#PyPI credentials
+PYPI_USER=__token__
+PYPI_KEY=your_token
 ```
