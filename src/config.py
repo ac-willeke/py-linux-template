@@ -38,7 +38,6 @@ SPATIAL_REFERENCE = config_instance.SPATIAL_REFERENCE
 
 
 if __name__ == "__main__":
-
     PROJECT_DIR = os.path.join(os.path.dirname(__file__), os.pardir)
     config_file = os.path.join(PROJECT_DIR, "config.yaml")
     config_instance = Config(config_file)

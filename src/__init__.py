@@ -11,5 +11,5 @@ __version__ = "0.1.0"
 
 # import config global variables
 
+from .config import DATA_PATH, LOG_PATH, PROJECT_DIR, SPATIAL_REFERENCE  # noqa
 from .logger import setup_logger  # noqa
-from .config import PROJECT_DIR, LOG_PATH, DATA_PATH, SPATIAL_REFERENCE  # noqa
