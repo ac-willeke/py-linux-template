@@ -16,7 +16,7 @@ endef
 export PRINT_HELP_PYSCRIPT
 
 help:
-	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 # --------------------------------------------------------------------------- #
 # Style targets
@@ -71,10 +71,12 @@ clean-test: ## remove test and coverage artifacts
 # --------------------------------------------------------------------------- #
 
 test: install ## run tests quickly with the virtual environment's Python
-    source $(VENV_NAME)/bin/activate && pytest
+	source $(VENV_NAME)/bin/activate
+	pytest
 
 test-all: install ## run tests on every Python version with tox
-    source $(VENV_NAME)/bin/activate && tox
+	source $(VENV_NAME)/bin/activate
+	tox
 
 # --------------------------------------------------------------------------- #
 # Setuptools targets (use on windows or when you have non-python files)
@@ -92,8 +94,8 @@ release: clean build ## package and upload a release
 	twine upload dist/*
 
 install: venv ## install the packages in requirements.txt in the virtual environment
-    source $(VENV_NAME)/bin/activate && python setup.py install
-
+	source $(VENV_NAME)/bin/activate
+	python setup.py install
 
 # --------------------------------------------------------------------------- #
 # Poetry targets (use on linux)
