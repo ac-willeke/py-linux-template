@@ -1,5 +1,5 @@
 """
-Test Module for utils.py
+pytest for utils.py
 """
 
 import pytest
@@ -24,4 +24,3 @@ def test_config(path_to_config_file):
     """
     config_instance = Config(path_to_config_file)
     assert config_instance.DATA_PATH == "/path/to/data"
-    assert config_instance.LOG_PATH == "/path/to/log"

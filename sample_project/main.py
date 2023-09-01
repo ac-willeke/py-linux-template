@@ -5,36 +5,31 @@ This script servers as the entry point
 for the sub-packages and modules of the project.
 """
 
-import logging
 import sys
 from pathlib import Path
 
-# Add the root directory of the project to the Python path
+# Add project root to path
 project_root = Path(__file__).parent.parent
-sys.path.append(str(project_root))
+if str(project_root) not in sys.path:
+    sys.path.append(str(project_root))
 
-from src import DATA_PATH, LOG_PATH, PROJECT_DIR, SPATIAL_REFERENCE  # noqa
-from src.logger import setup_logger  # noqa
+# setup logging
+from src.logger import reset_logger, setup_custom_logger, setup_logger  # noqa
+
+# LOGGER = logging.getLogger(__name__)
 
 
 def main():
-    """Run administrative tasks."""
+    """example main function"""
 
-    # Log a debug message
-    logging.debug("Starting main function...")
+    # log project configuration
+    logger = setup_logger("staging")
+    logger.info("test info")
 
-    # Access settings variables
-    logging.info("PROJECT_DIR: %s", PROJECT_DIR)
-    logging.info("LOG_PATH: %s", LOG_PATH)
-    logging.info("DATA_PATH: %s", DATA_PATH)
-    logging.info("SPATIAL_REFERENCE: %s", SPATIAL_REFERENCE)
-
-    # Log an info message
-    logging.info("Accessed settings variables")
-
-    # Rest of your code...
+    reset_logger()
+    custom_logger = setup_custom_logger(logfile=True)
+    custom_logger.debug("test info 2")
 
 
 if __name__ == "__main__":
-    setup_logger(logfile=True)  #
     main()
