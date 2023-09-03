@@ -24,7 +24,7 @@ def main():
     """example main function"""
 
     # log project configuration
-    logger.info("Log project configuration to file")
+    logger.info("Starting main script..")
 
 
 if __name__ == "__main__":

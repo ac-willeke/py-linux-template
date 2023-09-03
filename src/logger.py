@@ -117,6 +117,7 @@ def setup_custom_logging(
 
 
 ## Example usage of logger within modules
+## TODO move to tests/test_logger.py
 def test_function():
     """Test function for logging"""
 

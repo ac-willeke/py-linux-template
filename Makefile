@@ -34,6 +34,7 @@ docstring: ## create/ update docstring to restructured text
 
 pre-commit: ## run pre-commit on all files
 	pre-commit run -a
+#pre-commit run -a --config config/.pre-commit-config.yaml
 
 # --------------------------------------------------------------------------- #
 # Cleaning targets
