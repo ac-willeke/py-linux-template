@@ -1,3 +1,6 @@
+# Project configuration file
+# used by src/config.py to configure project
+
 # global variables
 study_area: country, county, municipality, district, city, area
 
