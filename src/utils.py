@@ -16,11 +16,17 @@ load_dotenv(dotenv_path)
 
 
 def get_typed_value(value: str) -> Union[float, int, str]:
-    """Derive true type from data value
+    """
+    Derive true type from data value
 
-    :param value: value
-    :returns: value as a native Python data type
+    Parameters
+    ----------
+    value : str
 
+    Returns
+    -------
+    type
+        value as a native Python data type
     """
 
     # Code copied from pygeoapi
@@ -39,12 +45,17 @@ def get_typed_value(value: str) -> Union[float, int, str]:
 
 
 def yaml_load(fh: IO) -> dict:
-    """serializes a YAML files into a pyyaml object
+    """
+    Serializes a YAML files into a pyyaml object
 
-    :param fh: file handle
+    Parameters
+    ----------
+    fh: IO
 
-    :returns: dict representation of YAML
-
+    Returns
+    -------
+    type : dict
+        dict representation of YAML file
     """
 
     # Code copied  from pygeoapi

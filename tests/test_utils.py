@@ -29,11 +29,7 @@ def test_get_typed_value():
 
 
 def test_yaml_load(set_config):
-    """test yaml_load.py
-
-    :param set_config:
-
-    """
+    """test yaml_load.py"""
     assert isinstance(set_config, dict)
     with pytest.raises(FileNotFoundError):
         with open(get_test_file_path("404.yml")) as fh:

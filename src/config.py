@@ -5,10 +5,19 @@ import os
 
 
 class Config:
-    """A class for configuring the project.
+    """
+    A class for configuring the project.
 
-    :param config_file: Path to config.yaml file.
-    :returns: Void (creates config instance)
+    Parameters
+    ----------
+    config_file : str
+        Path to config.yaml file.
+
+    Returns
+    -------
+    type
+        Void (creates config instance)
+
     """
 
     def __init__(self, config_file):

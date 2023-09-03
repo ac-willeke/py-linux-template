@@ -155,7 +155,55 @@ In this template the following code formatters and linter are used:
 
 - [Ruff](https://github.com/astral-sh/ruff) (linter)
 
-- [pyment](https://github.com/dadadel/pyment) (docstring formatter), docstrings in this template use the reStructured text style.
+- [pyment](https://github.com/dadadel/pyment) (docstring formatter), docstrings in this template use the Numpy style.
+
+Example of a docstring in Numpy style for a function:
+
+```python
+class Vehicles(object):
+    '''
+    The Vehicles object contains lots of vehicles
+
+    Parameters
+    ----------
+    arg : str
+        The arg is used for ...
+    *args
+        The variable arguments are used for ...
+    **kwargs
+        The keyword arguments are used for ...
+
+    Attributes
+    ----------
+    arg : str
+        This is where we store arg,
+    '''
+    def __init__(self, arg, *args, **kwargs):
+        self.arg = arg
+
+    def cars(self, distance, destination):
+        '''We can't travel distance in vehicles without fuels, so here is the fuels
+
+        Parameters
+        ----------
+        distance : int
+            The amount of distance traveled
+        destination : bool
+            Should the fuels refilled to cover the distance?
+
+        Raises
+        ------
+        RuntimeError
+            Out of fuel
+
+        Returns
+        -------
+        cars
+            A car mileage
+        '''
+        pass
+
+```
 
 Example of a docstring in reStructured text style for a function:
 

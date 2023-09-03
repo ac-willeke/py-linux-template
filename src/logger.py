@@ -22,11 +22,20 @@ def setup_logging(
     default_path="config/config_logging.yaml",
     default_level=logging.INFO,
 ):
-    """Setup logging configuration
+    """
+    Setup logging configuration
 
-    :param default_path:  (Default value = 'config/config_logging.yaml')
-    :param default_level:  (Default value = logging.INFO)
+    Parameters
+    ----------
+    default_path : str
+        Default value = 'config/config_logging.yaml')
+    default_level : logging level
+        Default value = logging.INFO)
 
+    Returns
+    -------
+    Void
+        Creates logging instance
     """
     path = default_path
     if os.path.exists(path):
@@ -40,25 +49,35 @@ def setup_logging(
 def setup_custom_logging(
     config_path="config/config_logging.yaml", logfile=True, logpath=None
 ):
-    """Setup logging configuration.
+    """
+    Setup logging configuration.
     The custom logger enables dynamic logfile names.
 
-    :param logfile: If True, log to file. Otherwise, log to console. (Default value = False)
-    :param logpath: The path to the log file if `logfile` is True. (Default value = None)
-    :param config_path:  (Default value = 'config/config_logging.yaml')
-    :returns: Void (creates logging instance)
+    Parameters
+    ----------
+    config_path : str
+        Default value = 'config/config_logging.yaml'
+    logfile : bool
+        If True, log to file. Otherwise, log to console. (Default value = False)
+    logpath : str
+        The path to the log file if `logfile` is True. (Default value = None)
+
+    Returns
+    -------
+    type
+        Void (creates logging instance)
 
     """
 
     # import local modules within function to avoid circular imports
     try:
         # module use
-        from src.utils import yaml_load
         from src import PROJECT_DIR
+        from src.utils import yaml_load
     except ModuleNotFoundError:
         # standalone use of logger.py
-        from utils import yaml_load
         from config import PROJECT_DIR
+        from utils import yaml_load
 
     # load logging configuration
     with open(config_path, "r") as f:
@@ -111,11 +130,23 @@ def test_function():
 
 
 class Test(object):
-    """Test class for logging.
+    """
+    Test class for logging.
 
-    :Methods:
-        - :log_config: Log project configuration
-        - :log_best_practices: Log best practices
+    Parameters
+    ----------
+    logger : logging instance
+        Default value = None
+
+    Attributes
+    ----------
+    logger : logging instance
+        Default value = None
+
+    Methods
+    -------
+        - log_config: Log project configuration
+        - log_best_practices: Log best practices
     """
 
     def __init__(self, logger=None):
@@ -152,7 +183,6 @@ class Test(object):
 
 
 if __name__ == "__main__":
-
     # setup loggging for standalone use of logger.py
     setup_logging()
     logger = logging.getLogger(__name__)

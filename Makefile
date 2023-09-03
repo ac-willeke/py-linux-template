@@ -28,9 +28,8 @@ codestyle: ## check codestyle (black, isort, ruff)
 	ruff check ./
 
 docstring: ## create/ update docstring to restructured text
-	pyment -w -o reST ./
-
-#pyment -w -o numpydoc ./
+	pyment -w -o numpydoc ./
+#pyment -w -o reST ./
 #pyment -w -o google ./
 
 pre-commit: ## run pre-commit on all files

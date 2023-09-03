@@ -7,7 +7,15 @@ LOGGER = logging.getLogger(__name__)
 def get_test_file_path(filename: str) -> str:
     """helper function to open test file safely
 
-    :param filename: str:
+    Parameters
+    ----------
+    filename :
+        str:
+    filename: str :
+
+
+    Returns
+    -------
 
     """
 

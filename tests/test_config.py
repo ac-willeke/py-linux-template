@@ -18,9 +18,6 @@ def path_to_config_file():
 
 
 def test_config(path_to_config_file):
-    """test config.py
-
-    :param path_to_config_file:
-    """
+    """test config.py"""
     config_instance = Config(path_to_config_file)
     assert config_instance.DATA_PATH == "/path/to/data"
