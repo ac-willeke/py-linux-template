@@ -97,6 +97,8 @@ def setup_custom_logging(
         + os.path.splitext(os.path.basename(sys.argv[0]))[0]
         + ".log"
     )
+
+    logfile_name = logfile_name.replace(" ", "_")
     path = os.path.join(logpath, logfile_name)
 
     if logfile:

@@ -387,6 +387,10 @@ TODO: one test shows 33% coverage, when all tests are run but 100% if only the t
 # GitHub Actions (TODO)
 - search python
 
+# Envrioment Variables in Linux shell (TODO)
+https://github.com/mkaranasou/pyaml_env
+https://medium.com/swlh/python-yaml-configuration-with-environment-variables-parsing-77930f4273ac
+
 ## References
 
 - [Python Packages](https://py-pkgs.org/welcome)

@@ -113,6 +113,7 @@ poetry-install: clean ## install poetry dependencies listed in pyproject.toml
 
 poetry-install-standard: ## install standard poetry dependencies
 	poetry add python-dotenv
+	poetry add pyaml_env
 	poetry add pytest --group dev
 	poetry add black --group dev
 	poetry add isort --group dev
