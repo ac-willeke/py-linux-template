@@ -87,3 +87,6 @@ temp/*
 !temp/.gitkeep
 log/*
 !log/.gitkeep
+
+# vscode
+.vscode
