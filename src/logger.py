@@ -110,17 +110,20 @@ class Test(object):
         """Log project configuration"""
         try:
             # loaded as module
-            from src.config import DATA_PATH, PROJECT_DIR, SPATIAL_REFERENCE  # noqa
+            from src.config import load_catalog, load_parameters  # noqa
         except ModuleNotFoundError:
             # standalone use of logger.py
-            from config import DATA_PATH, PROJECT_DIR, SPATIAL_REFERENCE  # noqa
+            from config import load_catalog, load_parameters  # noqa
 
         self.logger.info("Log project configuration:")
 
+        catalog = load_catalog()
+        parameters = load_parameters()
         # Access configuration variables
-        self.logger.info("PROJECT_DIR: %s", PROJECT_DIR)
-        self.logger.info("DATA_PATH: %s", DATA_PATH)
-        self.logger.info("SPATIAL_REFERENCE: %s", SPATIAL_REFERENCE)
+        self.logger.info("DATA_PATH: %s", catalog["name"]["filepath"])
+        self.logger.info(
+            "SPATIAL_REFERENCE: %s", parameters["spatial_reference"]["utm33"]
+        )
         self.logger.info("Project configuration logged.")
 
     def log_best_practices(self):

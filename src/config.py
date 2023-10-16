@@ -1,57 +1,48 @@
-"""
-A module for configuring the project.
-"""
+"""Project configuration"""
+
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+from utils import yaml_load
+
+# --------------------------------------------------------------------------- #
+# Load secure variables from .env file
+# --------------------------------------------------------------------------- #
+
+# for .env file in USER directory
+# user_dir = C:\\USERS\\<<firstname.lastname>>
+user_dir = os.path.join(os.path.expanduser("~"))
+dotenv_path = os.path.join(user_dir, ".env")
+load_dotenv(dotenv_path)
+
+# path to yaml project configuration file
+project_root = Path(__file__).parents[1]
+config_file = os.path.join(project_root, "config/config.yaml")
+print(config_file)
 
 
-class Config:
-    """
-    A class for configuring the project.
+# --------------------------------------------------------------------------- #
+def load_catalog():
+    catalog = os.path.join(project_root, "config/catalog.yaml")
+    with open(catalog, "r") as f:
+        catalog = yaml_load(f)
 
-    Parameters
-    ----------
-    config_file : str
-        Path to config.yaml file.
-
-    Returns
-    -------
-    type
-        Void (creates config instance)
-
-    """
-
-    def __init__(self, config_file):
-        # local imports
-        try:
-            from src.utils import yaml_load
-        except ModuleNotFoundError:
-            from utils import yaml_load
-
-        with open(config_file, "r") as f:
-            config = yaml_load(f)
-
-        self.DATA_PATH = config["paths"]["data_path"]
-        self.SPATIAL_REFERENCE = config["spatial_reference"]["utm33"]
-        return
+    return catalog
 
 
-# global variables
-PROJECT_DIR = os.path.join(os.path.dirname(__file__), os.pardir)
-CONFIG_FILE = os.path.join(PROJECT_DIR, "config/config.yaml")
-
-# create config instance and load global variables
-config_instance = Config(CONFIG_FILE)
-DATA_PATH = config_instance.DATA_PATH
-SPATIAL_REFERENCE = config_instance.SPATIAL_REFERENCE
+def load_parameters():
+    parameters = os.path.join(project_root, "config/parameters.yaml")
+    with open("../config/parameters.yaml", "r") as f:
+        parameters = yaml_load(f)
+    return parameters
 
 
-def main():
-    print("Testing config.py...")
-    print(f"PROJECT_DIR: {PROJECT_DIR}")
-    print(f"CONFIG_FILE: {CONFIG_FILE}")
-    print(f"DATA_PATH: {DATA_PATH}")
-    print(f"SPATIAL_REFERENCE: {SPATIAL_REFERENCE}")
-
+# --------------------------------------------------------------------------- #
 
 if __name__ == "__main__":
-    main()
+    # load catalog
+    print("Loading catalog...")
+    catalog = load_catalog()
+    parameters = load_parameters()
+    print(catalog["name"]["filepath"])
