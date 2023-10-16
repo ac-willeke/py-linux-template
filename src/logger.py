@@ -19,7 +19,7 @@ def reset_logger():
 
 
 def setup_logging(
-    default_path="config/config_logging.yaml",
+    default_path="config/logging.yaml",
     default_level=logging.INFO,
 ):
     """
@@ -28,7 +28,7 @@ def setup_logging(
     Parameters
     ----------
     default_path : str
-        Default value = 'config/config_logging.yaml')
+        Default value = 'config/logging.yaml')
     default_level : logging level
         Default value = logging.INFO)
 
@@ -47,7 +47,7 @@ def setup_logging(
 
 
 def setup_custom_logging(
-    config_path="config/config_logging.yaml", logfile=True, logpath=None
+    config_path="../config/logging.yaml", logfile=True, logpath=None
 ):
     """
     Setup logging configuration.
@@ -56,7 +56,7 @@ def setup_custom_logging(
     Parameters
     ----------
     config_path : str
-        Default value = 'config/config_logging.yaml'
+        Default value = 'config/logging.yaml'
     logfile : bool
         If True, log to file. Otherwise, log to console. (Default value = False)
     logpath : str
@@ -99,6 +99,8 @@ def setup_custom_logging(
     )
 
     logfile_name = logfile_name.replace(" ", "_")
+    logfile_name = logfile_name.replace(":", "")
+    logfile_name = logfile_name.replace("-", "")
     path = os.path.join(logpath, logfile_name)
 
     if logfile:

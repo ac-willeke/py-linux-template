@@ -6,6 +6,7 @@ for the sub-packages and modules of the project.
 """
 import logging
 import sys
+import os
 from pathlib import Path
 
 # Add project root to path
@@ -17,7 +18,8 @@ if str(project_root) not in sys.path:
 from src.logger import setup_logging, setup_custom_logging  # noqa
 import src.decorators as dec  # noqa
 
-setup_logger = setup_logging()
+config_file = os.path.join(project_root, "config/logging.yaml")
+setup_logger = setup_logging(config_file)
 logger = logging.getLogger(__name__)
 
 
