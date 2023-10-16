@@ -19,7 +19,7 @@ def reset_logger():
 
 
 def setup_logging(
-    default_path="config/logging.yaml",
+    default_path="../config/logging.yaml",
     default_level=logging.INFO,
 ):
     """
@@ -38,86 +38,35 @@ def setup_logging(
         Creates logging instance
     """
     path = default_path
+
     if os.path.exists(path):
         with open(path, "rt") as f:
             config = yaml.safe_load(f.read())
+
+        # update logfile path and add to handler
+
+        # logfile_name
+        logfile_name = (
+            datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            + "_"
+            + os.path.splitext(os.path.basename(sys.argv[0]))[0]
+            + ".log"
+        )
+
+        # update info file handler
+        config["handlers"]["info_file_handler"]["filename"] = os.path.join(
+            project_dir, "log", logfile_name
+        )
+
+        # load configuration
         logging.config.dictConfig(config)
+        logging.info("Logging configuration file found and loaded.")
+
     else:
         logging.basicConfig(level=default_level)
-
-
-def setup_custom_logging(
-    config_path="../config/logging.yaml", logfile=True, logpath=None
-):
-    """
-    Setup logging configuration.
-    The custom logger enables dynamic logfile names.
-
-    Parameters
-    ----------
-    config_path : str
-        Default value = 'config/logging.yaml'
-    logfile : bool
-        If True, log to file. Otherwise, log to console. (Default value = False)
-    logpath : str
-        The path to the log file if `logfile` is True. (Default value = None)
-
-    Returns
-    -------
-    type
-        Void (creates logging instance)
-
-    """
-
-    # import local modules within function to avoid circular imports
-    try:
-        # module use
-        from src import PROJECT_DIR
-        from src.utils import yaml_load
-    except ModuleNotFoundError:
-        # standalone use of logger.py
-        from config import PROJECT_DIR
-        from utils import yaml_load
-
-    # load logging configuration
-    with open(config_path, "r") as f:
-        config = yaml_load(f)
-
-    log_level = config["handlers"]["console"]["level"]
-    log_format = config["formatters"]["simple"]["format"]
-    date_format = config["formatters"]["simple"]["datefmt"]
-    if logpath is None:
-        logpath = os.path.join(PROJECT_DIR, "log")
-    else:
-        logpath = logpath
-
-    logfile_name = (
-        datetime.datetime.now().strftime(date_format)
-        + "_"
-        + os.path.splitext(os.path.basename(sys.argv[0]))[0]
-        + ".log"
-    )
-
-    logfile_name = logfile_name.replace(" ", "_")
-    logfile_name = logfile_name.replace(":", "")
-    logfile_name = logfile_name.replace("-", "")
-    path = os.path.join(logpath, logfile_name)
-
-    if logfile:
-        logging.basicConfig(
-            level=log_level,
-            datefmt=date_format,
-            format=log_format,
-            filename=path,
+        logging.info(
+            "Logging configuration file not found. Using default configuration."
         )
-    else:
-        logging.basicConfig(
-            level=log_level, datefmt=date_format, format=log_format, stream=sys.stdout
-        )
-    logger = logging.getLogger(__name__)
-    logger.debug("Logging initialized")
-
-    return logger
 
 
 ## Example usage of logger within modules
@@ -197,8 +146,6 @@ if __name__ == "__main__":
     Test(logger).log_best_practices()
 
     # test custom logger
-    reset_logger()
-    custom_logger = setup_custom_logging(logfile=True)
     test_function()
 
     pass
