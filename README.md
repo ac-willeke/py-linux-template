@@ -5,8 +5,6 @@ py-linux-template
 
 This is a template for a python project on linux.
 
-
-
 The following files are included in this template:
 
 0. [Project structure](docs/project_structure.md) to view the structure of this template.
