@@ -19,7 +19,7 @@ def reset_logger():
 
 
 def setup_logging(
-    default_path="config/config_logging.yaml",
+    default_path="../config/logging.yaml",
     default_level=logging.INFO,
 ):
     """
@@ -28,7 +28,7 @@ def setup_logging(
     Parameters
     ----------
     default_path : str
-        Default value = 'config/config_logging.yaml')
+        Default value = 'config/logging.yaml')
     default_level : logging level
         Default value = logging.INFO)
 
@@ -38,84 +38,35 @@ def setup_logging(
         Creates logging instance
     """
     path = default_path
+
     if os.path.exists(path):
         with open(path, "rt") as f:
             config = yaml.safe_load(f.read())
+
+        # update logfile path and add to handler
+
+        # logfile_name
+        logfile_name = (
+            datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            + "_"
+            + os.path.splitext(os.path.basename(sys.argv[0]))[0]
+            + ".log"
+        )
+
+        # update info file handler
+        config["handlers"]["info_file_handler"]["filename"] = os.path.join(
+            project_dir, "log", logfile_name
+        )
+
+        # load configuration
         logging.config.dictConfig(config)
+        logging.info("Logging configuration file found and loaded.")
+
     else:
         logging.basicConfig(level=default_level)
-
-
-def setup_custom_logging(
-    config_path="config/config_logging.yaml", logfile=True, logpath=None
-):
-    """
-    Setup logging configuration.
-    The custom logger enables dynamic logfile names.
-
-    Parameters
-    ----------
-    config_path : str
-        Default value = 'config/config_logging.yaml'
-    logfile : bool
-        If True, log to file. Otherwise, log to console. (Default value = False)
-    logpath : str
-        The path to the log file if `logfile` is True. (Default value = None)
-
-    Returns
-    -------
-    type
-        Void (creates logging instance)
-
-    """
-
-    # import local modules within function to avoid circular imports
-    try:
-        # module use
-        from src import PROJECT_DIR
-        from src.utils import yaml_load
-    except ModuleNotFoundError:
-        # standalone use of logger.py
-        from config import PROJECT_DIR
-        from utils import yaml_load
-
-    # load logging configuration
-    with open(config_path, "r") as f:
-        config = yaml_load(f)
-
-    log_level = config["handlers"]["console"]["level"]
-    log_format = config["formatters"]["simple"]["format"]
-    date_format = config["formatters"]["simple"]["datefmt"]
-    if logpath is None:
-        logpath = os.path.join(PROJECT_DIR, "log")
-    else:
-        logpath = logpath
-
-    logfile_name = (
-        datetime.datetime.now().strftime(date_format)
-        + "_"
-        + os.path.splitext(os.path.basename(sys.argv[0]))[0]
-        + ".log"
-    )
-
-    logfile_name = logfile_name.replace(" ", "_")
-    path = os.path.join(logpath, logfile_name)
-
-    if logfile:
-        logging.basicConfig(
-            level=log_level,
-            datefmt=date_format,
-            format=log_format,
-            filename=path,
+        logging.info(
+            "Logging configuration file not found. Using default configuration."
         )
-    else:
-        logging.basicConfig(
-            level=log_level, datefmt=date_format, format=log_format, stream=sys.stdout
-        )
-    logger = logging.getLogger(__name__)
-    logger.debug("Logging initialized")
-
-    return logger
 
 
 ## Example usage of logger within modules
@@ -159,17 +110,20 @@ class Test(object):
         """Log project configuration"""
         try:
             # loaded as module
-            from src.config import DATA_PATH, PROJECT_DIR, SPATIAL_REFERENCE  # noqa
+            from src.config import load_catalog, load_parameters  # noqa
         except ModuleNotFoundError:
             # standalone use of logger.py
-            from config import DATA_PATH, PROJECT_DIR, SPATIAL_REFERENCE  # noqa
+            from config import load_catalog, load_parameters  # noqa
 
         self.logger.info("Log project configuration:")
 
+        catalog = load_catalog()
+        parameters = load_parameters()
         # Access configuration variables
-        self.logger.info("PROJECT_DIR: %s", PROJECT_DIR)
-        self.logger.info("DATA_PATH: %s", DATA_PATH)
-        self.logger.info("SPATIAL_REFERENCE: %s", SPATIAL_REFERENCE)
+        self.logger.info("DATA_PATH: %s", catalog["name"]["filepath"])
+        self.logger.info(
+            "SPATIAL_REFERENCE: %s", parameters["spatial_reference"]["utm33"]
+        )
         self.logger.info("Project configuration logged.")
 
     def log_best_practices(self):
@@ -195,8 +149,6 @@ if __name__ == "__main__":
     Test(logger).log_best_practices()
 
     # test custom logger
-    reset_logger()
-    custom_logger = setup_custom_logging(logfile=True)
     test_function()
 
     pass
