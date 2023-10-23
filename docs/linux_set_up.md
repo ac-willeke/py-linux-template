@@ -246,6 +246,54 @@ A template Makefile is provided in this repository. It contains the following ta
 - `make docstring`: generates or converts docstrings to the reStructured text style using pyment
 - `make cleanup`: removes all temporary files and directories
 
+## 8. Gdal and Geospatial Libraries
+
+*Why is it better to install gdal using pip instead of conda?*
+- [doc](https://towardsdev.com/why-would-you-install-gdal-using-pip-not-conda-ad83f0b0c370)
+- Conda requires a lot of storage space
+   - it installs a lot of standard dependencies
+   - conda pacagkes are binaries and do not need to be compiled
+- Conda not suitable for CI/CD pipelines and github actions as the performance is very slow
+
+Install gdal using conda:
+```shell
+conda install -c conda-forge gdal
+```
+
+Install gdal using pip:
+[doc](https://towardsdev.com/gdal-installation-for-linux-b15faf5eb74b)
+```shell
+   which python3 # 3.10.12
+   which gcc -v # 11.4.0
+   which g++ -v # 11.4.0
+
+   sudo apt-get update # update the package index
+   sudo apt-get upgrade # upgrade the system
+   sudo apt-get -y install gcc g++ # install gcc and g++ compilers (required to compile python extensions)
+   sudo add-apt-repository ppa:deadsnakes/ppa # add deadsnakes repository to apt sources list  (deadsnakes contains python)
+   sudo apt -y install python3.10
+   sudo apt-get -y install python3-pip
+   sudo apt-get -y install python3.10-distutils python3-apt
+   sudo apt-get -y install python3.10-dev
+   sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable # add ubuntugis repository to apt sources list (ubuntugis contains gdal)
+
+   sudo apt search gdal-bin # search for gdal-bin in the apt repository
+   sudo apt-get install gdal-bin
+   sudo apt-get -y install libpq-dev libgdal-dev
+
+```
+
+Packages
+========
+
+The packages provided here are loosely based on the debian upstream packages with some modifications to make them more usable as non-default pythons and on ubuntu. As such, the packages follow debian's patterns and often do not include a full python distribution with just `apt install python#.#`. Here is a list of packages that may be useful along with the default install:
+
+- `python#.#-dev`: includes development headers for building C extensions
+- `python#.#-venv`: provides the standard library `venv` module
+- `python#.#-distutils`: provides the standard library `distutils` module
+- `python#.#-lib2to3`: provides the `2to3-#.#` utility as well as the standard library `lib2to3` module
+- `python#.#-gdbm`: provides the standard library `dbm.gnu` module
+- `python#.#-tk`: provides the standard library `tkinter` module
 
 # Create, Build and Publish a Python Package
 

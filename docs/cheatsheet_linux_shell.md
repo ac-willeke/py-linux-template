@@ -21,6 +21,16 @@ Source: [Datacamp | Introduction to shell](https://learn.datacamp.com/courses/in
     source ~/.bashrc
 ```
 
+- Disable automatic conda base activation in shell
+```shell
+    # Check your shell configuration
+    conda config --show | grep auto_activate_base
+    # Disable automatic conda base activation in shell
+    conda config --set auto_activate_base false
+    # Check your shell configuration
+    conda config --show | grep auto_activate_base
+```
+
 
 ## 1. Manipulating files and directories
 
