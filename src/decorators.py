@@ -22,14 +22,13 @@ def timer(func):
 
     """
 
-    import time
     import logging
+    import time
 
     logger = logging.getLogger(__name__)
 
     @wraps(func)
     def wrapper(*args, **kwargs):
-
         start = time.perf_counter()
         # call the function
         output = func(*args, **kwargs)
@@ -68,7 +67,6 @@ def dec_logger(func):
 
     @wraps(func)
     def wrapper(*args, **kwargs):
-
         logger.info(f"------ start function: {func.__name__} ------")
         try:
             logger.info(f"Run with args: {args}, and kwargs: {kwargs}")
@@ -85,7 +83,6 @@ def dec_logger(func):
 
 
 def main():
-
     # simple console logger
     import logging
     import time

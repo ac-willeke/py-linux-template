@@ -1,18 +1,18 @@
-# ${PROJECT}: path/to/local/project/catalog 
+# ${PROJECT}: path/to/local/project/catalog
 # stored in user-dir/.env
 
 # ----------------------------
 # DATA CATALOG
 # ----------------------------
 
-name: 
+name:
   type: filegdb
-  filepath: ${LAKSEKART_PROJECT}/path/to/gdb
+  filepath: ${TEMP}/path/to/gdb
 
 
 name2:
   type: excel
-  filepath: ${LAKSEKART_PROJECT}/path/to/excel
+  filepath: ${TEMP}/path/to/excel
 
 # ----------------------------
 # METADATA
@@ -54,5 +54,3 @@ metadata:
         hours: Hours of Service
         instructions: During hours of service.  Off on weekends.
         role: pointOfContact
-
-

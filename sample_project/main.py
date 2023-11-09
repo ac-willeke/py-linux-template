@@ -5,8 +5,8 @@ This script servers as the entry point
 for the sub-packages and modules of the project.
 """
 import logging
-import sys
 import os
+import sys
 from pathlib import Path
 
 # Add project root to path
@@ -14,9 +14,10 @@ project_root = Path(__file__).parent.parent
 if str(project_root) not in sys.path:
     sys.path.append(str(project_root))
 
-# setup logging
-from src.logger import setup_logging, setup_custom_logging  # noqa
 import src.decorators as dec  # noqa
+
+# setup logging
+from src.logger import setup_logging  # noqa
 
 config_file = os.path.join(project_root, "config/logging.yaml")
 setup_logger = setup_logging(config_file)

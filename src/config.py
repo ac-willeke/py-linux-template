@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 from utils import yaml_load
@@ -33,7 +34,7 @@ def load_catalog():
 
 def load_parameters():
     parameters = os.path.join(project_root, "config/parameters.yaml")
-    with open("../config/parameters.yaml", "r") as f:
+    with open(parameters, "r") as f:
         parameters = yaml_load(f)
     return parameters
 
