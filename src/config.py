@@ -3,7 +3,6 @@
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
 
 from utils import yaml_load
 
@@ -13,14 +12,13 @@ from utils import yaml_load
 
 # for .env file in USER directory
 # user_dir = C:\\USERS\\<<firstname.lastname>>
-user_dir = os.path.join(os.path.expanduser("~"))
-dotenv_path = os.path.join(user_dir, ".env")
-load_dotenv(dotenv_path)
+# user_dir = os.path.join(os.path.expanduser("~"))
+# dotenv_path = os.path.join(user_dir, ".env")
+# print(dotenv_path)
+# load_dotenv(dotenv_path)
 
 # path to yaml project configuration file
 project_root = Path(__file__).parents[1]
-config_file = os.path.join(project_root, "config/config.yaml")
-print(config_file)
 
 
 # --------------------------------------------------------------------------- #
