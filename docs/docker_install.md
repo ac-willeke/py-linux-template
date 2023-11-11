@@ -70,3 +70,8 @@ Add VS Code Extensions in container
 Close container in VS code
 1. CTRL + SHIFT + P
 2. Dev Contains: Reopen Folder locally ...
+
+Mount a folder or network folder to your image
+docker run  --rm -it -v /path/to/network/drive/:/mnt/ <imageid>  
+
+/workspaces/geodata-request/mnt/trekroner
