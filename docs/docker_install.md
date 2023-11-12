@@ -54,24 +54,48 @@ docker run -it <image-id>
 docker rmi <image-id>
 ```
 
-# Build, run and debug container in VS Code
+### STEPS FROM COMMAND LINE
+1. create a container image from a dockerfile 
+- cd /path/to/Dockerfile/location
+- docker build -t <image-name><tag> .
+- docker build -t gdal-python:0.0.1 .
+- -t tag, . build from cwd
+
+2. List information
+- docker images (container images)
+- docker ps (running containers)
+- docker ps -a (started and stopped containers)
+
+3. enter container
+- docker run -it <image-id>
+
+4. stop container & delete all stopped containers
+- docker stop <container-id> && docker system prune
+  
+5. add folder (volume) to container
+- /home/willeke.acampo/ac_config
+- /data/P-Prosjekter2/152022_itree_eco_ifront_synliggjore_trars_rolle_i_okosyst/data
+- docker run --rm -it -v /path/to/local/or/nework/folder/:/mnt/ <image-name>:<image-tag>
+  > starts a new container, remove it if it exists mount folder to /mnt/ inside the container and run container in interactive mode. 
+- docker run -v /path/to/local/or/nework/folder/:/mnt/ <image-name>:<image-tag>
+  > starts a new container in detached mode. This means that the container will run in the background even after you exit the terminal.
+
+## STEPS IN VS CODE
+1. creates a container from the devcontainer.json
+   - devcontainer.json specifies how to build the container: which image, which folders to mount etc.
+   - if you don't have a devcontainer.json, vs code can build one from your dockerfile or from standard templates.
+2. Open VS code in the container
+  - CTRL + SHIFT + P
+  - Dev Contains: Reopen Folder in container ...
+3. Close container in VS code
+  - CTRL + SHIFT + P
+  - Dev Contains: Reopen Folder locally ...
+
+**NOTE**:
+VS Code automatically "mounts" your workspace folder to the container:
+/workspaces/project-name/
+See [template_devcontainer.json](.devcontainer/template_devcontainer.json) on how to customize your vs code in the container and how to mount folders to the /workspace/project-name/ container path. 
 
 
-## Enter Docker image in VS Code
 
-Open VS code in container
-1. CTRL + SHIFT + P
-2. Dev Contains: Reopen Folder in container ...
-3. Select Project Folder
-4. Select Additional Features (optional)
 
-Add VS Code Extensions in container
-
-Close container in VS code
-1. CTRL + SHIFT + P
-2. Dev Contains: Reopen Folder locally ...
-
-Mount a folder or network folder to your image
-docker run  --rm -it -v /path/to/network/drive/:/mnt/ <imageid>  
-
-/workspaces/geodata-request/mnt/trekroner
