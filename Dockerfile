@@ -1,3 +1,4 @@
+
 # Use the official GDAL image as the base image
 FROM osgeo/gdal:ubuntu-small-latest
 
@@ -21,11 +22,8 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --no-root
 # ---------------------------------------
 
-RUN mkdir -p /app/notebooks
-
-EXPOSE 8888
-
-# Change path to Python environment
+# Change path to poetry venv
 RUN export PATH="/app/venv/bin:$PATH"
 
-CMD ["jupyter", "notebook", "--"]
+#EXPOSE 8888
+#CMD ["jupyter", "notebook", "--"]

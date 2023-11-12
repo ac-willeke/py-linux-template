@@ -86,3 +86,6 @@ log/*
 
 # vscode
 .vscode
+
+# docker
+devcontainer.json
