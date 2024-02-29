@@ -1,3 +1,27 @@
+## Install Docker as non-root user
+Install Docker as non-root user:
+
+If you installed Docker 20.10 or later with RPM/DEB packages, you should have dockerd-rootless-setuptool.sh in /usr/bin.
+
+Run dockerd-rootless-setuptool.sh install as a non-root user to set up the daemon:
+
+```bash
+dockerd-rootless-setuptool.sh install
+[INFO] Creating /home/testuser/.config/systemd/user/docker.service
+...
+[INFO] Installed docker.service successfully.
+[INFO] To control docker.service, run: `systemctl --user (start|stop|restart) docker.service`
+[INFO] To run docker.service on system startup, run: `sudo loginctl enable-linger testuser`
+
+[INFO] Make sure the following environment variables are set (or add them to ~/.bashrc):
+
+export PATH=/usr/bin:$PATH
+export DOCKER_HOST=unix:///run/willeke.acampo/1000/docker.sock
+```
+
+Check if env variables are set:
+echo $PATH | grep -q "/usr/bin" && echo "Found" || echo "Not found"
+
 ### Install Docker Image
 
 ```bash
@@ -52,10 +76,13 @@ docker run -it <image-id>
 
 # remove docker image
 docker rmi <image-id>
+
+# remove all unused docker objects
+docker system prune
 ```
 
 ### STEPS FROM COMMAND LINE
-1. create a container image from a dockerfile 
+1. create a container image from a dockerfile
 - cd /path/to/Dockerfile/location
 - docker build -t <image-name><tag> .
 - docker build -t gdal-python:0.0.1 .
@@ -71,12 +98,12 @@ docker rmi <image-id>
 
 4. stop container & delete all stopped containers
 - docker stop <container-id> && docker system prune
-  
+
 5. add folder (volume) to container
 - /home/willeke.acampo/ac_config
 - /data/P-Prosjekter2/152022_itree_eco_ifront_synliggjore_trars_rolle_i_okosyst/data
 - docker run --rm -it -v /path/to/local/or/nework/folder/:/mnt/ <image-name>:<image-tag>
-  > starts a new container, remove it if it exists mount folder to /mnt/ inside the container and run container in interactive mode. 
+  > starts a new container, remove it if it exists mount folder to /mnt/ inside the container and run container in interactive mode.
 - docker run -v /path/to/local/or/nework/folder/:/mnt/ <image-name>:<image-tag>
   > starts a new container in detached mode. This means that the container will run in the background even after you exit the terminal.
 
@@ -94,8 +121,4 @@ docker rmi <image-id>
 **NOTE**:
 VS Code automatically "mounts" your workspace folder to the container:
 /workspaces/project-name/
-See [template_devcontainer.json](.devcontainer/template_devcontainer.json) on how to customize your vs code in the container and how to mount folders to the /workspace/project-name/ container path. 
-
-
-
-
+See [template_devcontainer.json](.devcontainer/template_devcontainer.json) on how to customize your vs code in the container and how to mount folders to the /workspace/project-name/ container path.
