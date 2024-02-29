@@ -1,0 +1,11 @@
+Input file: vern_25833.gpkg
+Driver: GPKG
+Layers: Naturvernområde
+ForeslattVern
+Layer: Naturvernområde
+Feature count: 3370
+CRS: "ETRS89 / UTM zone 33N"
+Layer: ForeslattVern
+Feature count: 289
+CRS: "ETRS89 / UTM zone 33N"
+Script execution ended at Thu Feb 29 15:07:13 UTC 2024
