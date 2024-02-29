@@ -1,6 +1,6 @@
 
 # Use the official GDAL image as the base image
-FROM osgeo/gdal:ubuntu-small-latest
+FROM osgeo/gdal:ubuntu-small-3.6.3
 
 # install pip
 RUN apt-get update && apt-get -y install python3-pip --fix-missing
