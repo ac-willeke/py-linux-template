@@ -6,7 +6,7 @@
 LOG_FILE="reproject.log"
 METADATA_FILE="metadata.txt"
 ROOT="/workspaces/py-linux-template/mnt/data"
-INPUT_FILE="vern_25833.gpkg"
+INPUT_FILE="bevaring_25833.gpkg"
 DRIVER="GPKG"
 
 
